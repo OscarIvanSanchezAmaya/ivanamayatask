@@ -12,7 +12,12 @@ module "roles" {
     role = ${lookup(var.roles[count.index], "role")}
     permisos = ${lookup(var.roles[count.index], "permisos")}
 }
-
+module "alb" {
+    vpc = module.vpc.vpc
+}
+locals {
+    target = [module.alb.target_audio, module.alb.target_video, module.alb.target_iamges]
+}
 module "ecs" {
     count = length(var.apps)
     source = "./modules/ecs.tf"
@@ -21,5 +26,5 @@ module "ecs" {
     cluster = aws_ecs_cluster.cluster.id
     taskrole = module.roles[0].arn
     exrole = module.roles[1].arn
-
+    target = locals.target[count.index]
 }
