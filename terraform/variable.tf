@@ -38,7 +38,7 @@ variable "apps" {
             typefile = "mp4"
         },
         {
-            app = "image"
+            app = "images"
             typefile = "jpg"
         }
     ]
@@ -49,10 +49,17 @@ variable "roles" {
         {
             role = "taskrole"
             permisos = ["ecr:*"]
+            sts = "ecs-tasks.amazonaws.com"
         },
         {
             role = "exrole"
             permisos = ["s3:*"]
+            sts = "ecs-tasks.amazonaws.com"
+        },
+        {
+            role = "cirole"
+            permisos = ["s3:*", "ecr:*"]
+            sts = "codepipeline.amazonaws.com"
         }
     ]
 }
