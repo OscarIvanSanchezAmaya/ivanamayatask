@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "repo" {
-  name                 = "bar"
+  name                 = "ivan-repo"
 }
 
 resource "aws_codebuild_project" "build" {
